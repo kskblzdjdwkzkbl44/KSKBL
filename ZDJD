@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>感谢支持</title>
+<style>
+  :root {
+    --ink: #111;
+    --muted: #8a8a8a;
+    --line: #ececec;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { background: #fff; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+                 "Microsoft YaHei", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- 收款卡片：图片在中间，文字在旁边 ---------- */
+  .pay-card {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    padding: 40px 48px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .pay-qr {
+    display: block;
+    width: 240px;
+    height: 240px;
+    max-width: 100%;
+    object-fit: contain;
+    background: #fafafa;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .pay-text { max-width: 260px; }
+
+  .pay-text h1 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    line-height: 1.4;
+  }
+
+  .pay-text p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ---------- 手机上改为上下排列 ---------- */
+  @media (max-width: 640px) {
+    .pay-card {
+      flex-direction: column;
+      gap: 24px;
+      padding: 30px 24px;
+      text-align: center;
+    }
+    .pay-text { max-width: none; }
+    .pay-qr { width: 200px; height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="pay-card">
+    <!-- 收款二维码：把 src 换成本地图片或你的收款码地址 -->
+    <img class="pay-qr" id="payQr" alt="收款二维码" />
+
+    <div class="pay-text">
+      <h1>感谢各位支持</h1>
+      <p>扫码即可打赏，金额随意，心意最重要。</p>
+    </div>
+  </main>
+
+<script>
+  /* ============================================
+     把这里换成你自己的收款二维码图片地址
+     ============================================ */
+  const PAY_QR_IMAGE = "https://img.remit.ee/i/0fNLEUCDBZA0";
+
+  const qr = document.getElementById("payQr");
+
+  // 图片加载失败时显示占位图
+  const PLACEHOLDER =
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480">' +
+        '<rect width="100%" height="100%" fill="#f4f4f4"/>' +
+        '<text x="50%" y="50%" fill="#c2c2c2" font-family="sans-serif" ' +
+        'font-size="20" text-anchor="middle" dominant-baseline="middle">收款二维码</text>' +
+      '</svg>'
+    );
+
+  qr.src = PAY_QR_IMAGE;
+  qr.addEventListener("error", function () {
+    if (qr.src !== PLACEHOLDER) qr.src = PLACEHOLDER;
+  });
+</script>
+
+</body>
+</html>
